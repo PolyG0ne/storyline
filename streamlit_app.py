@@ -11,17 +11,17 @@ st.title("Timeline de ma progression professionnelle")
 
 st.markdown(
     """
-    1980
-    |
-    |
-    |
-    |
-    1982
-    |
-    |
-    |
-    |
-    1984
+    1980\n
+    |\n
+    |\n
+    |\n
+    |\n
+    1982\n
+    |\n
+    |\n
+    |\n
+    |\n
+    1984\n
 
 
     """
