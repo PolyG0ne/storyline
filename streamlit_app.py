@@ -128,7 +128,7 @@ def create_timeline_item(date, titre, description, image=None, compétences=None
         
         # Affichage de l'image si fournie
         if image:
-            st.image(image, use_column_width=True, caption=titre, output_format="JPEG")
+            st.image(image, use_container_width=True, caption=titre, output_format="JPEG")
         
         st.markdown(f"<p>{description}</p>", unsafe_allow_html=True)
         
