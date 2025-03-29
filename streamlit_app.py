@@ -82,4 +82,4 @@ st.sidebar.write(annees)
 
 # Option pour regénérer la timeline
 if st.sidebar.button("Regénérer la timeline"):
-    st.experimental_rerun()
+    st.rerun()
