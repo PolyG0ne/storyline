@@ -9,6 +9,13 @@ st.title("Timeline de ma progression professionnelle")
 
 
 st.title("1980")
-
-
+st.markdown(
+    """
+    |\n
+    |\n
+    |\n
+    |\n
+    |\n
+    """
+)
 st.title("1980")
