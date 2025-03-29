@@ -1,57 +1,71 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 
+# Configuration de la page
 st.set_page_config(layout="wide")
 
 # Titre de l'application
-st.title("Application avec règle temporelle (1980-2030)")
+st.title("Ligne temporelle 1980-2030")
 
-# Création de la mise en page avec colonnes
-col1, col2 = st.columns([1, 3])
+# Création de deux colonnes: une pour la règle temporelle, une pour le contenu principal
+timeline_col, main_col = st.columns([1, 3])
 
-# Création de la règle temporelle dans la colonne de gauche
-with col1:
-    st.markdown("## Règle temporelle")
-    
-    # Création de la liste des années
-    years = list(range(1980, 2031))
-    
-    # Création d'un DataFrame pour faciliter l'affichage
-    df_years = pd.DataFrame({"Année": years})
-    
-    # Ajout d'un sélecteur pour choisir l'année active
-    selected_year = st.select_slider(
-        "Sélectionnez une année",
-        options=years,
-        value=2000
-    )
-    
-    # Affichage de la règle temporelle
-    for year in years:
-        # Personnalisation de l'affichage en fonction de l'année sélectionnée
-        if year == selected_year:
-            st.markdown(f"### **{year}** ←")
-        else:
-            # Ajout d'espace entre les années pour permettre le défilement
-            st.markdown(f"### {year}")
-            st.markdown("<br>", unsafe=False)
+# Configuration du style pour rendre la barre de défilement visible
+st.markdown("""
+<style>
+    section.main > div {
+        max-height: 100vh;
+        overflow-y: auto;
+    }
+</style>
+""", unsafe_allow_html=True)  # Ce unsafe_allow_html est nécessaire pour le CSS, mais n'affecte pas le contenu
 
-# Contenu principal dans la colonne de droite
-with col2:
-    st.markdown(f"## Contenu pour l'année {selected_year}")
-    st.write(f"Vous avez sélectionné l'année {selected_year}.")
-    st.write("Ajoutez ici le contenu principal de votre application.")
+# Fonction pour créer la règle temporelle
+def create_timeline(start_year=1980, end_year=2030, interval=2):
+    years = list(range(start_year, end_year + 1, interval))
     
-    # Exemple de contenu qui change en fonction de l'année sélectionnée
-    if selected_year < 1990:
-        st.write("Période: Années 80")
-    elif selected_year < 2000:
-        st.write("Période: Années 90")
-    elif selected_year < 2010:
-        st.write("Période: Années 2000")
-    elif selected_year < 2020:
-        st.write("Période: Années 2010")
-    else:
-        st.write("Période: Années 2020")
+    # Utilisation de Streamlit pour la règle temporelle (sans unsafe_allow_html)
+    with timeline_col:
+        st.markdown("### Années")
+        for year in years:
+            # Créer un conteneur pour chaque année
+            year_container = st.container()
+            year_container.markdown(f"**{year}**")
+            # Ajouter un espace pour la séparation
+            st.markdown("<br>", unsafe_allow_html=True)
+            
+            # Contenu factice pour créer de l'espace et permettre le défilement
+            st.markdown("##")
+
+# Création de contenu factice pour la colonne principale (pour tester le défilement)
+def create_dummy_content():
+    with main_col:
+        st.header("Contenu principal")
+        st.write("Faites défiler la page pour voir la ligne temporelle complète.")
+        
+        # Ajout de contenu pour tester le défilement
+        for i in range(20):
+            st.markdown(f"### Section {i+1}")
+            st.write("Contenu de test pour permettre le défilement de la page.")
+            st.markdown("---")
+
+# Alternative sans utiliser unsafe_allow_html pour les espaces
+def create_timeline_alt(start_year=1980, end_year=2030, interval=2):
+    years = list(range(start_year, end_year + 1, interval))
     
-    # Vous pouvez ajouter plus de contenu ici qui change en fonction de l'année sélectionnée
+    with timeline_col:
+        st.markdown("### Années")
+        for year in years:
+            st.markdown(f"**{year}**")
+            # Utiliser des espaces vides pour créer de la séparation
+            for _ in range(3):
+                st.text(" ")
+
+# Exécution des fonctions
+create_timeline_alt()  # Version alternative sans unsafe_allow_html pour les espaces
+create_dummy_content()
+
+# Si vous souhaitez utiliser la version originale avec un peu plus d'espace:
+# create_timeline()
+# create_dummy_content()
